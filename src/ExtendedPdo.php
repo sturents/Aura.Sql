@@ -978,7 +978,9 @@ class ExtendedPdo extends PDO implements ExtendedPdoInterface
 
         // rebuild the statement and values
         $rebuilder = new Rebuilder($this);
+        $statement = str_replace("''", "_NULL_", $statement);
         list($statement, $values) = $rebuilder->__invoke($statement, $values);
+        $statement = str_replace("_NULL_", "''", $statement);
 
         // prepare the statement
         $sth = $this->prepare($statement);
